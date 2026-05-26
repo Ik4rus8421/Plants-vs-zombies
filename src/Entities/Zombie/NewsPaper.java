@@ -311,3 +311,35 @@ private void updateJump() {
 }
 
 
+// PoleVaulting.java - Detect plant to jump over
+int col = (int) ((x + FRONT_OFFSET) / TILE_SIZE);  // FRONT_OFFSET = 30
+
+if (!jumped && col >= 0 && col < Game.getInstance().grid.cols) {
+    var cell = Game.getInstance().grid.cells[row][col];
+    
+    if (cell.plant != null) {
+        String plantName = cell.plant.getClass().getSimpleName();
+        
+        // Special plants that block or damage
+        if (plantName.equalsIgnoreCase("Spikeweed") 
+            || plantName.equalsIgnoreCase("Spikerock")) {
+            x -= speed;  // Take damage / get pushed back
+        }
+        else if (plantName.equalsIgnoreCase("TallNut")) {
+            attackPlant(cell.plant);  // Cannot jump over TallNut
+        }
+        else {
+            // START JUMP over normal plant
+            jumpTargetRow = row;
+            jumpTargetCol = col;
+            isJumping = true;
+            jumpFrameIndex = 0;
+            jumpTimer = 0;
+            return;
+        }
+    }
+}
+
+
+
+
