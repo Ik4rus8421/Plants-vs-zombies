@@ -221,3 +221,10 @@ else targetPhase = NO_ARM;
 
 
 
+// Reset animation when phase changes
+if (targetPhase != currentPhase) {
+    currentPhase = targetPhase;
+    currentFrameIndex = 0;
+    animationTimer = 0;
+}
+
