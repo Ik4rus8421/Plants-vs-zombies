@@ -258,7 +258,8 @@ if (!foundPlantToEat) {
 }
 
 
-// Each zombie has separate walking and eating frame lists per phase
+// Each zombie has separate walking and 
+// eating frame lists per phase
 private List<Image> getActiveFrameList() {
     if (!isAttacking) {
         // Walking frames based on current phase
