@@ -187,3 +187,37 @@ public class NewsPaper extends Zombies {
         }
     }
 }
+
+
+
+
+
+
+
+// All 4 zombies have HP-based phase determination
+// BrownSuit (HP: 100)
+if (hp > 66) targetPhase = FULL_HP;
+else if (hp > 33) targetPhase = HALF_HP;
+else targetPhase = HEAD_LESS;
+
+// ConeHead (HP: 280)
+if (hp > 200) targetPhase = FULL_CONE;
+else if (hp > 100) targetPhase = DAMAGED_CONE;
+else if (hp > 50) targetPhase = NO_CONE;
+else targetPhase = NO_HAND;
+
+// BucketHead (HP: 400)
+if (hp > 260) targetPhase = FULL_BUCKET;
+else if (hp > 130) targetPhase = DAMAGED_BUCKET;
+else if (hp > 50) targetPhase = NO_BUCKET;
+else targetPhase = NO_ARM;
+
+// NewsPaper (HP: 150)
+if (hp > 100) targetPhase = FULL_NEWSPAPER;
+else if (hp > 70) targetPhase = DAMAGED_NEWSPAPER;
+else if (hp > 35) targetPhase = NO_NEWSPAPER;
+else targetPhase = NO_ARM;
+
+
+
+
