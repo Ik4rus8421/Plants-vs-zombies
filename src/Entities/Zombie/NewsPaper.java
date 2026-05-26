@@ -258,3 +258,23 @@ if (!foundPlantToEat) {
 }
 
 
+// Each zombie has separate walking and eating frame lists per phase
+private List<Image> getActiveFrameList() {
+    if (!isAttacking) {
+        // Walking frames based on current phase
+        switch (currentPhase) {
+            case DAMAGED: return walkDamagedFrames;
+            case NO_ARM: return walkNoArmFrames;
+            default: return walkFullFrames;
+        }
+    } else {
+        // Eating frames based on current phase
+        switch (currentPhase) {
+            case DAMAGED: return eatDamagedFrames;
+            case NO_ARM: return eatNoArmFrames;
+            default: return eatFullFrames;
+        }
+    }
+}
+
+
