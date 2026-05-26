@@ -228,3 +228,27 @@ if (targetPhase != currentPhase) {
     animationTimer = 0;
 }
 
+// All zombies check distance to plant before eating
+int myCol = (int) (x / 100);
+double plantCenter = myCol * 100 + 50;
+double distance = Math.abs(x - plantCenter);
+
+// BrownSuit & BucketHead: distance <= 15
+// ConeHead: distance <= 25
+// NewsPaper: distance <= 10
+if (distance <= 15) {  // Threshold varies by zombie type
+    foundPlantToEat = true;
+    isAttacking = true;
+    
+    biteCooldown++;
+    if (biteCooldown >= 20) {
+        cell.plant.hp -= 20;
+        biteCooldown = 0;
+        if (cell.plant.hp <= 0) {
+            cell.plant = null;
+            isAttacking = false;
+        }
+    }
+}
+
+
