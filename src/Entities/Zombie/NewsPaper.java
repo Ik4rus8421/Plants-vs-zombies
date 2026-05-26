@@ -251,4 +251,10 @@ if (distance <= 15) {  // Threshold varies by zombie type
     }
 }
 
+// Only move when not eating
+if (!foundPlantToEat) {
+    isAttacking = false;
+    super.update();  // Calls parent move: x -= speed
+}
+
 
