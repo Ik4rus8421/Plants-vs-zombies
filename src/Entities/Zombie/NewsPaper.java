@@ -279,3 +279,35 @@ private List<Image> getActiveFrameList() {
 }
 
 
+
+// PoleVaulting.java - Jump parabola calculation
+private void updateJump() {
+    // Move forward during jump
+    x -= jumpSpeed;
+    
+    // Parabola height calculation
+    double progress = (double) jumpFrameIndex / (jumpDuration - 1);
+    // Peak at middle: -120 * 4 * progress * (1 - progress)
+    jumpOffsetY = -120 * (4 * progress * (1 - progress));
+    
+    jumpTimer++;
+    if (jumpTimer >= jumpFrameDelay) {
+        jumpTimer = 0;
+        jumpFrameIndex++;
+        
+        List<Image> jumpFrames = (currentPhase == ZombiePhase.WITH_POLE_FULL) 
+            ? jumpWithPoleFull : jumpWithPoleDamaged;
+        
+        if (jumpFrameIndex >= jumpFrames.size()) {
+            // Jump completed
+            isJumping = false;
+            jumped = true;
+            speed = 1;
+            jumpOffsetY = 0;
+            jumpedPlantRow = jumpTargetRow;
+            jumpedPlantCol = jumpTargetCol;
+        }
+    }
+}
+
+
