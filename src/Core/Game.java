@@ -24,7 +24,7 @@ public class Game {
     
     // ===== SURVIVAL TIMER (dùng frame, 10 frame = 1 giây) =====
     private int survivalFrames = 0;
-    private final int WIN_FRAMES = 1200 * 10;  // 240 giây * 10 frame/giây = 2400 frame
+    private final int WIN_FRAMES = 300 * 10;  // 240 giây * 10 frame/giây = 2400 frame
     private boolean gameWin = false;
     private boolean gameLose = false;
 
