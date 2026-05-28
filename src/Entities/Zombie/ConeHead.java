@@ -90,7 +90,7 @@ public class ConeHead extends Zombies {
                 double plantCenter = myCol * 100 + 50;
                 double distance = Math.abs(x - plantCenter);
                 
-                // SỬA: ĂN KHI ĐỦ GẦN (25px)
+                // FIXED: Eat when close enough (25px)
                 if (distance <= 25) {
                     foundPlantToEat = true;
                     isAttacking = true;
@@ -106,13 +106,13 @@ public class ConeHead extends Zombies {
                         }
                     }
                 } else {
-                    // SỬA: CHƯA ĐỦ GẦN → TIẾP TỤC DI CHUYỂN
+                    // FIXED: Not close enough → continue moving
                     foundPlantToEat = false;
                 }
             }
         }
 
-        // SỬA: CHỈ DI CHUYỂN KHI KHÔNG ĂN
+        // FIXED: Only move when not eating
         if (!foundPlantToEat) {
             if (isAttacking) {
                 currentFrameIndex = 0;
@@ -122,7 +122,7 @@ public class ConeHead extends Zombies {
             super.update();
         }
 
-        // Xác định phase dựa trên HP
+        // Determine phase based on HP
         ZombiePhase targetPhase;
         if (this.hp > 200) {
             targetPhase = ZombiePhase.FULL_CONE;
@@ -134,7 +134,7 @@ public class ConeHead extends Zombies {
             targetPhase = ZombiePhase.NO_HAND;
         }
 
-        // Reset animation khi phase thay đổi
+        // Reset animation when phase changes
         if (targetPhase != currentPhase) {
             currentPhase = targetPhase;
             currentFrameIndex = 0;
