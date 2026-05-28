@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public class PeaShooter extends Plants {
-    private int timer; // Your original bullet timer
+    private int timer; // Original bullet timer
 
     // Separate lists for both animation states (film strips)
     private final List<Image> idleFrames;
@@ -61,10 +61,8 @@ public class PeaShooter extends Plants {
         }
     }
 
-    // ⚠️ NOTE: Edit this method to match your exact shooting image names!
     // Right now, it assumes a pattern of "shootpeashooter1.png" to "shootpeashooter6.png"
     private void loadShootingFrames() {
-        // Change the '6' below to match the exact number of shooting pictures you have!
         for (int i = 1; i <= 6; i++) {
             String path = "/image/plant/peashooter/peashootershoot/peashootershoot" + i + ".png";
             try {
@@ -83,7 +81,7 @@ public class PeaShooter extends Plants {
         // Check if there is currently a target zombie in this row
         boolean zombieAhead = Game.getInstance().hasZombieAhead(row, col);
 
-        // --- YOUR ORIGINAL BULLET LOGIC (UNTOUCHED) ---
+        // Original bullet logic
         timer++;
         if (timer >= 15 && zombieAhead) {
             Game.getInstance().bullets.add(
@@ -91,9 +89,7 @@ public class PeaShooter extends Plants {
             );
             timer = 0;
         }
-        // -------------------------------------
 
-        // --- SMART ANIMATION STATE MACHINE ---
         // If a zombie just entered or just left the lane, reset indices
         // so the new animation loop starts cleanly from the first image frame
         if (zombieAhead != wasZombieAhead) {

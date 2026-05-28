@@ -4,7 +4,7 @@ public abstract class Plants {
     public int row;
     public int col;
 
-    // 🛠️ Shared health variable across ALL plants
+    // Shared health variable across ALL plants
     public int hp;
 
     public Plants(int row, int col) {
