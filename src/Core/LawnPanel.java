@@ -16,7 +16,7 @@ public class LawnPanel extends JPanel {
         setLayout(null);
         setPreferredSize(new Dimension(1430, 618));
 
-        // ===== TẠO ĐỒNG HỒ =====
+        // ===== CREATE CLOCK =====
         timerLabel = new JLabel();
         timerLabel.setFont(new Font("Arial", Font.BOLD, 20));
         timerLabel.setForeground(Color.WHITE);
@@ -26,9 +26,9 @@ public class LawnPanel extends JPanel {
         timerLabel.setBounds(20, 15, 130, 35);
         add(timerLabel);
         
-        // Timer cập nhật lawnmower và đồng hồ
+        // Timer to update lawnmower and clock
         updateTimer = new Timer(50, e -> {
-            // Cập nhật lawnmower
+            // Update lawnmower
             for (LawnMower mower : game.mowers) {
                 mower.update();
             }
@@ -38,9 +38,9 @@ public class LawnPanel extends JPanel {
         updateTimer.start();
     }
     
-    // Thêm phương thức reset
+    // Add reset method
     public void resetGame() {
-        game = Game.getInstance();  // Lấy instance mới (đã reset)
+        game = Game.getInstance();  // Get new instance (already reset)
         updateTimerDisplay();
         repaint();
     }
@@ -52,12 +52,12 @@ public class LawnPanel extends JPanel {
             int seconds = remainingSeconds % 60;
             timerLabel.setText(String.format("%02d:%02d", minutes, seconds));
             
-            // ĐỔI MÀU: Xanh lá khi gần hết giờ
+            // CHANGE COLOR: Green when time is almost up
             if (remainingSeconds <= 10) {
-                timerLabel.setForeground(Color.GREEN);   // Đỏ -> Xanh lá
+                timerLabel.setForeground(Color.GREEN);   // Red -> Green
                 timerLabel.setFont(new Font("Arial", Font.BOLD, 24));
             } else if (remainingSeconds <= 30) {
-                timerLabel.setForeground(Color.YELLOW);  // Cam -> Vàng
+                timerLabel.setForeground(Color.YELLOW);  // Orange -> Yellow
                 timerLabel.setFont(new Font("Arial", Font.BOLD, 22));
             } else {
                 timerLabel.setForeground(Color.WHITE);
@@ -75,7 +75,7 @@ public class LawnPanel extends JPanel {
             mower.drawOnLawnPanel(g);
         }
         
-        // Hiển thị nền khi kết thúc game
+        // Display overlay when game ends
         if (game.isGameWin()) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(new Color(0, 150, 0, 200));

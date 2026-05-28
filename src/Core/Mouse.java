@@ -21,13 +21,13 @@ public class Mouse extends MouseAdapter {
         this.dragStartX = e.getX();
         this.dragStartY = e.getY();
         
-        // 1. Cập nhật dragX, dragY TRƯỚC
+        // 1. Update dragX, dragY FIRST
         gamePanel.updateDrag(e.getX(), e.getY());
         
-        // 2. Gọi handleClick (sẽ gọi selectPlant -> set isDragging = true)
+        // 2. Call handleClick (will call selectPlant -> set isDragging = true)
         gamePanel.handleClick(e.getX(), e.getY());
         
-        // 3. Nếu cần, bắt đầu shovel drag
+        // 3. If needed, start shovel drag
         if (e.getY() <= 100 && e.getX() >= 830 && e.getX() <= 890) {
             gamePanel.startShovelDrag(e.getX(), e.getY());
         }
@@ -38,13 +38,13 @@ public class Mouse extends MouseAdapter {
         this.pressed = false;
 
         if (isDragging) {
-            // Kéo thả thông thường
+            // Normal drag and drop
             gamePanel.handleDragDrop(e.getX(), e.getY(), dragStartX, dragStartY);
             gamePanel.endDrag();
             gamePanel.setDraggingFromClick(false);
         }
-        // KHÔNG xử lý isDraggingFromClick ở đây nữa
-        // isDraggingFromClick sẽ được tắt trong handleClick khi đặt plant hoặc hủy
+        // DO NOT handle isDraggingFromClick here anymore
+        // isDraggingFromClick will be turned off in handleClick when placing plant or canceling
 
         this.isDragging = false;
     }
