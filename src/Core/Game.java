@@ -22,16 +22,16 @@ public class Game {
 
     public ArrayList<LawnMower> mowers = new ArrayList<>();
     
-    // ===== SURVIVAL TIMER (dùng frame, 10 frame = 1 giây) =====
+    // ===== SURVIVAL TIMER (using frames, 10 frames = 1 second) =====
     private int survivalFrames = 0;
-    private final int WIN_FRAMES = 300 * 10;  // 240 giây * 10 frame/giây = 2400 frame
+    private final int WIN_FRAMES = 300 * 10;  // 240 seconds * 10 frames/second = 2400 frames
     private boolean gameWin = false;
     private boolean gameLose = false;
 
-    // ===== CÀI ĐẶT GAME OVER =====
+    // ===== GAME OVER SETTINGS =====
     private final double GAME_OVER_X_LIMIT = 0;
     
-    // Thêm phương thức
+    // Add method
     public boolean isGameLose() {
         return gameLose;
     }
@@ -82,12 +82,12 @@ public class Game {
     }
 
     public void update() {
-        // ===== KIỂM TRA KẾT THÚC GAME =====
+        // ===== CHECK GAME END CONDITION =====
         if (gameWin || gameLose) {
             return;
         }
         
-        // ===== CẬP NHẬT TIMER =====
+        // ===== UPDATE TIMER =====
         survivalFrames++;
         if (survivalFrames >= WIN_FRAMES) {
             gameWin = true;
@@ -221,7 +221,7 @@ public class Game {
         return false;
     }
     
-    // ===== GETTER CHO TIMER =====
+    // ===== GETTER FOR TIMER =====
     public int getRemainingSeconds() {
         int remainingFrames = WIN_FRAMES - survivalFrames;
         return Math.max(0, remainingFrames / 10);
