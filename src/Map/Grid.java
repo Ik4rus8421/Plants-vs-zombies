@@ -37,7 +37,7 @@ public class Grid {
             //}
         //}
 
-        // 🚨 STOP HERE!
+        // STOP HERE!
         // Completely delete the "for" loop that checks for "plant != null" and "instanceof SunFlower"
     }
 }

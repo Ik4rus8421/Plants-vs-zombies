@@ -28,18 +28,18 @@ public abstract class Zombies {
             speed = originalSpeed;
         }
 
-        // Tính cột dựa trên vị trí thực tế (bỏ +30)
+        // Calculate column based on actual position (removed +30)
         int col = (int)(x / 100);
         
         if (col >= 0 && col < Core.Game.getInstance().grid.cols && row >= 0 && row < Core.Game.getInstance().grid.rows) {
             var cell = Core.Game.getInstance().grid.cells[row][col];
             if (cell.plant != null) {
-                // Tính khoảng cách từ zombie đến tâm plant
+                // Calculate distance from zombie to plant center
                 double plantCenter = col * 100 + 50;
                 double distance = Math.abs(x - plantCenter);
                 
-                // GIẢM GIÁ TRỊ - Càng nhỏ càng phải đến gần
-                if (distance <= 0) {  // Giảm từ 30 xuống 20
+                // REDUCE THE VALUE - Smaller means must get closer
+                if (distance <= 0) {  // Reduced from 30 to 20
                     cell.plant.hp -= 1;
                     if (cell.plant.hp <= 0) {
                         cell.plant = null;
