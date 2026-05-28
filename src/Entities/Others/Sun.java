@@ -30,9 +30,7 @@ public class Sun {
         loadAnimationFrames();
     }
 
-    /**
-     * Loads sun1.png and sun2.png assets safely from memory
-
+    //Loads sun1.png and sun2.png assets safely from memory
     private void loadAnimationFrames() {
         for (int i = 1; i <= 2; i++) {
             String path = "/image/others/sun/sun" + i + ".png";
@@ -66,7 +64,7 @@ public class Sun {
             life--;
         }
 
-        // --- NEW: Progress Animation Timeline ---
+        // Progress Animation Timeline
         if (!animationFrames.isEmpty()) {
             animationTimer++;
             if (animationTimer >= frameDelay) {
@@ -76,9 +74,7 @@ public class Sun {
         }
     }
 
-    /**
-     * --- NEW: Draws the active animated sun frame asset ---
-     */
+    //NEW: Draws the active animated sun frame asset ---
     public void draw(Graphics g) {
         if (!animationFrames.isEmpty()) {
             // Scales the asset image perfectly to 40x40 to align with mouse bounds
