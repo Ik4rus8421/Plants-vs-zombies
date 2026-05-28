@@ -2,7 +2,6 @@ package Entities.Plant;
 
 import Core.Game;
 import Entities.Zombie.PoleVaulting;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -79,30 +78,30 @@ public class PotatoMine extends Plants {
 
         if (!armed) return;
 
-        // Hitbox của potato mine (toàn bộ ô)
+        // Potato mine hitbox (entire cell)
         double mineLeft = col * 100;
         double mineRight = col * 100 + 100;
         
-        // Phát hiện zombie có phần nào lấn vào ô mine
+        // Detect if any zombie overlaps the mine cell
         boolean shouldExplode = false;
         
         for (var z : Game.getInstance().Zombies) {
             if (z.row != row) continue;
             
-            // Hitbox của zombie
+            // Zombie hitbox
             double zombieLeft = z.x;
-            double zombieRight = z.x + 60;  // Chiều rộng zombie ~60px
+            double zombieRight = z.x + 60;  // Zombie width ~60px
             
-            // Điều chỉnh cho PoleVaulting chưa nhảy (gậy dài)
+            // Adjust for PoleVaulting that hasn't jumped yet (long pole)
             if (z instanceof PoleVaulting) {
                 PoleVaulting pv = (PoleVaulting) z;
                 if (!pv.hasJumped()) {
-                    zombieLeft = z.x + 50;   // Bỏ qua gậy
-                    zombieRight = z.x + 110; // Thân + gậy
+                    zombieLeft = z.x + 50;   // Ignore the pole
+                    zombieRight = z.x + 110; // Body + pole
                 }
             }
             
-            // Kiểm tra hitbox có giao nhau không
+            // Check if hitboxes overlap
             if (zombieRight >= mineLeft && zombieLeft <= mineRight) {
                 shouldExplode = true;
                 break;
@@ -110,7 +109,7 @@ public class PotatoMine extends Plants {
         }
         
         if (shouldExplode) {
-            // Xóa TẤT CẢ zombie có phần lấn vào ô mine
+            // Remove ALL zombies that overlap the mine cell
             for (int i = Game.getInstance().Zombies.size() - 1; i >= 0; i--) {
                 var z = Game.getInstance().Zombies.get(i);
                 if (z.row != row) continue;
@@ -132,7 +131,7 @@ public class PotatoMine extends Plants {
                 }
             }
             
-            // Xóa potato mine
+            // Remove potato mine
             exploded = true;
             Game.getInstance().grid.cells[row][col].plant = null;
             System.out.println("PotatoMine EXPLODED at row " + row + ", col " + col);
