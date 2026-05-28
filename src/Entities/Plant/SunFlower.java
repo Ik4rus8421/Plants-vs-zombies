@@ -24,9 +24,7 @@ public class SunFlower extends Plants {
         loadIdleFrames();
     }
 
-    /**
-     * Loads your idle frames starting with sunfloweridle1.png
-     */
+    // Loads your idle frames starting with sunfloweridle1.png
     private void loadIdleFrames() {
         // Tweak the '8' to match your exact count of idle frames
         for (int i = 1; i <= 8; i++) {
@@ -68,9 +66,7 @@ public class SunFlower extends Plants {
         }
     }
 
-    /**
-     * Draws the animated sunflower frame at its row/col tile position
-     */
+    // Draws the animated sunflower frame at its row/col tile position
     public void draw(Graphics g) {
         // Offset by 15 pixels to perfectly center a 70x70 image inside the 100x100 cell
         int drawX = col * 100 + 15;

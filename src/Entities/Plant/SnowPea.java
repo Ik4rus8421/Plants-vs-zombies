@@ -115,7 +115,7 @@ public class SnowPea extends Plants {
     
     private void startGameTimer() {
         gameTimer = new Timer(20, e -> {
-            // Kiểm tra nếu timer đã bị hủy hoặc cây không còn trong grid
+            // Check if timer has been destroyed or plant is no longer in the grid
             if (gameTimer == null) return;
             if (Game.getInstance().grid.cells[row][col].plant != this) {
                 endGameTimer();
@@ -179,7 +179,7 @@ public class SnowPea extends Plants {
     
     @Override
     public void update() {
-        // Timer riêng đã xử lý
+        // Separate timer already handles this
     }
     
     public void draw(Graphics g) {
