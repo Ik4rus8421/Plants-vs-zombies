@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 public class Repeater extends Plants {
 
     private int cooldown = 0;
-    private boolean hasShot = false;  // Đánh dấu đã bắn trong chu kỳ animation này
+    private boolean hasShot = false;  // Mark if has shot in this animation cycle
 
     // Animation Containers
     private final List<Image> idleFrames = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Repeater extends Plants {
     private int animationTimer = 0;
 
     private final int idleFrameDelay = 2;
-    private final int shootFrameDelay = 12;  // Giảm xuống để animation nhanh hơn
+    private final int shootFrameDelay = 12;  // Reduced to make animation faster
 
     private boolean wasZombieAhead = false;
 
@@ -70,19 +70,19 @@ public class Repeater extends Plants {
                 if (animationTimer >= shootFrameDelay) {
                     animationTimer = 0;
                     
-                    // TĂNG currentFrameIndex TRƯỚC khi kiểm tra
+                    // INCREASE currentFrameIndex BEFORE checking
                     currentFrameIndex = (currentFrameIndex + 1) % shootingFrames.size();
                     
-                    // BẮN Ở FRAME CUỐI CÙNG (index = shootingFrames.size() - 1)
+                    // SHOOT AT THE LAST FRAME (index = shootingFrames.size() - 1)
                     if (currentFrameIndex == shootingFrames.size() - 1 && !hasShot) {
-                        // Bắn 2 viên đạn
+                        // Shoot 2 bullets
                         Game.getInstance().bullets.add(new Bullet(row, col * 100 + 90, false));
                         Game.getInstance().bullets.add(new Bullet(row, col * 100 + 70, false));
                         hasShot = true;
                         System.out.println("Repeater SHOT at frame " + currentFrameIndex);
                     }
                     
-                    // Reset hasShot khi bắt đầu chu kỳ mới (frame 0)
+                    // Reset hasShot when starting a new cycle (frame 0)
                     if (currentFrameIndex == 0) {
                         hasShot = false;
                     }
