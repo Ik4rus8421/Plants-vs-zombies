@@ -80,11 +80,11 @@ public class NewsPaper extends Zombies {
         if (myCol >= 0 && myCol < Game.getInstance().grid.cols && row >= 0 && row < Game.getInstance().grid.rows) {
             var cell = Game.getInstance().grid.cells[row][myCol];
             if (cell.plant != null) {
-                // TÍNH KHOẢNG CÁCH ĐẾN PLANT
+                // CALCULATE DISTANCE TO PLANT
                 double plantCenter = myCol * 100 + 50;
                 double distance = Math.abs(x - plantCenter);
                 
-                // CHỈ ĂN KHI ZOMBIE ĐỦ GẦN (cách plant dưới 40px)
+                // ONLY EAT WHEN ZOMBIE IS CLOSE ENOUGH (less than 40px from plant)
                 if (distance <= 10) {
                     foundPlantToEat = true;
                     if (!isAttacking) {
@@ -114,7 +114,7 @@ public class NewsPaper extends Zombies {
             super.update();
         }
 
-        // Phần còn lại giữ nguyên...
+        // The rest remains unchanged...
         ZombiePhase targetPhase;
         if (this.hp > 100) {
             targetPhase = ZombiePhase.FULL_NEWSPAPER;
@@ -165,9 +165,9 @@ public class NewsPaper extends Zombies {
         int baseX = (int) x;
         int baseY = row * 100 + 100;
         
-        // SỬA OFFSET ở đây
-        int X_OFFSET = 0;   // Đổi từ -30 thành 0
-        int Y_OFFSET = -15; // Giữ nguyên hoặc tùy chỉnh
+        // FIX OFFSET here
+        int X_OFFSET = 0;   // Changed from -30 to 0
+        int Y_OFFSET = -15; // Keep as is or customize
 
         List<Image> activeFrames = getActiveFrameList();
 
