@@ -32,11 +32,9 @@ public class PeaShooter extends Plants {
         loadShootingFrames();
     }
 
-    /**
-     * Loads the 9 idle frames (flashpeashooter1.png to 9.png)
-     */
+    // Loads the 9 idle frames (flashpeashooter1.png to 9.png)
     private void loadIdleFrames() {
-        // Load nhiều idle frame để tạo animation đung đưa
+        // Load multiple idle frames to create swaying animation
         for (int i = 1; i <= 9; i++) {
             String path = "/image/plant/peashooter/peashooter/peashooter" + i + ".png";
             try {
@@ -49,7 +47,7 @@ public class PeaShooter extends Plants {
             }
         }
         
-        // Nếu không có nhiều frame, dùng 1 frame tĩnh
+        // If no multiple frames, use 1 static frame
         if (idleFrames.isEmpty()) {
             String path = "/image/plant/peashooter/peashooter/peashooter1.png";
             try {
@@ -63,10 +61,8 @@ public class PeaShooter extends Plants {
         }
     }
 
-    /**
-     * ⚠️ NOTE: Edit this method to match your exact shooting image names!
-     * Right now, it assumes a pattern of "shootpeashooter1.png" to "shootpeashooter6.png"
-     */
+    // ⚠️ NOTE: Edit this method to match your exact shooting image names!
+    // Right now, it assumes a pattern of "shootpeashooter1.png" to "shootpeashooter6.png"
     private void loadShootingFrames() {
         // Change the '6' below to match the exact number of shooting pictures you have!
         for (int i = 1; i <= 6; i++) {
@@ -125,9 +121,7 @@ public class PeaShooter extends Plants {
         }
     }
 
-    /**
-     * Draws the correct frame from the active animation state
-     */
+    // Draws the correct frame from the active animation state
     public void draw(Graphics g) {
         // Offset by 15 pixels to perfectly center
         int drawX = col * 100 + 15;

@@ -13,7 +13,7 @@ public class Chomper extends Plants {
     private boolean isEating = false;
     private boolean hasEaten = false;
     
-    // Lưu máu của zombie đã ăn
+    // Store the HP of the eaten zombie
     private int eatenZombieHp = 0;
     
     // Animation frames
@@ -115,18 +115,18 @@ public class Chomper extends Plants {
         return dragImage;
     }
     
-    // Tính thời gian nhai dựa trên máu zombie
+    // Calculate chew time based on zombie HP
     private int calculateCooldownByHp(int zombieHp) {
-        // Mỗi 10 máu = 5 tick cooldown (có thể điều chỉnh)
-        // Zombie thường: 100 máu -> 50 tick
-        // Conehead: 280 máu -> 140 tick
-        // Buckethead: 400 máu -> 200 tick
+        // Every 10 HP = 5 cooldown ticks (adjustable)
+        // Normal zombie: 100 HP -> 50 ticks
+        // Conehead: 280 HP -> 140 ticks
+        // Buckethead: 400 HP -> 200 ticks
         return (zombieHp / 10) * 5;
     }
     
     @Override
     public void update() {
-        // Kiểm tra cooldown sau khi ăn xong
+        // Check cooldown after eating is complete
         if (cooldown > 0) {
             cooldown--;
             if (cooldown == 0) {
@@ -139,7 +139,7 @@ public class Chomper extends Plants {
             }
         }
         
-        // Chỉ tìm zombie để ăn khi không đang trong cooldown
+        // Only look for zombies to eat when not on cooldown
         if (cooldown == 0 && !isEating) {
             for (int i = 0; i < Game.getInstance().Zombies.size(); i++) {
                 var z = Game.getInstance().Zombies.get(i);
@@ -148,7 +148,7 @@ public class Chomper extends Plants {
                 double distance = Math.abs(zombiePos - chomperPos);
                 
                 if (z.row == row && distance <= 50) {
-                    // Lưu máu zombie trước khi ăn
+                    // Store zombie HP before eating
                     eatenZombieHp = z.hp;
                     isEating = true;
                     currentAction = 2;
@@ -169,7 +169,7 @@ public class Chomper extends Plants {
                 animationTimer = 0;
                 currentFrameIndex++;
                 
-                // Xử lý khi đến frame chomperchomp2.png (index = 1)
+                // Handle when reaching frame chomperchomp2.png (index = 1)
                 if (currentAction == 2 && currentFrameIndex == 1 && !hasEaten) {
                     for (int i = 0; i < Game.getInstance().Zombies.size(); i++) {
                         var z = Game.getInstance().Zombies.get(i);
@@ -185,21 +185,21 @@ public class Chomper extends Plants {
                     }
                 }
                 
-                // Khi hết chomp frames, chuyển sang chew với cooldown dựa trên máu zombie
+                // When chomp frames finish, transition to chew with cooldown based on zombie HP
                 if (currentAction == 2 && currentFrameIndex >= chompFrames.size()) {
                     currentAction = 1;
                     currentFrameIndex = 0;
-                    // Tính cooldown dựa trên máu zombie đã ăn
+                    // Calculate cooldown based on eaten zombie HP
                     cooldown = calculateCooldownByHp(eatenZombieHp);
                     System.out.println("Chomper ate zombie with " + eatenZombieHp + " HP, cooldown = " + cooldown);
                 }
                 
-                // CHEW ANIMATION: Loop liên tục
+                // CHEW ANIMATION: Loop continuously
                 if (currentAction == 1 && currentFrameIndex >= chewFrames.size()) {
-                    currentFrameIndex = 0;  // Loop lại từ đầu
+                    currentFrameIndex = 0;  // Loop back to start
                 }
                 
-                // IDLE ANIMATION: Loop liên tục
+                // IDLE ANIMATION: Loop continuously
                 if (currentAction == 0 && currentFrameIndex >= idleFrames.size()) {
                     currentFrameIndex = 0;
                 }
