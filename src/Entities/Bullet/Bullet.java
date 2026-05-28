@@ -11,13 +11,13 @@ public class Bullet {
     public double x;
     public boolean slow = false;
 
-    // --- NEW: Single Sequential Timeline Track ---
+    // Single Sequential Timeline Track
     protected final List<Image> animationFrames = new ArrayList<>();
     protected int currentFrameIndex = 0; // 0 = Moving, 1 = Hit, 2 = Splash
 
     protected int animationTimer = 0;
-    protected final int frameDelay = 1
-            ; // Controls how long frames 1 and 2 linger on screen
+    protected final int frameDelay = 1;
+    // Controls how long frames 1 and 2 linger on screen
 
     protected boolean hasCollided = false;
     public boolean shouldRemove = false;
@@ -30,9 +30,9 @@ public class Bullet {
         loadAnimationFrames();
     }
 
-    /**
-     * Loads bullet1 (moving), bullet2 (hit), and bullet3 (splash) into memory
-     */
+  
+    //Loads bullet1 (moving), bullet2 (hit), and bullet3 (splash) into memory
+   
     protected void loadAnimationFrames() {
         for (int i = 1; i <= 3; i++) {
             String path = "/image/plant/bullet/pea/pea" + i + ".png";
@@ -49,9 +49,7 @@ public class Bullet {
         }
     }
 
-    /**
-     * Call this from Game.java when it intersects a zombie's hitbox
-     */
+    //Call this from Game.java when it intersects a zombie's hitbox
     public void explode() {
         if (!hasCollided) {
             hasCollided = true;
@@ -60,9 +58,7 @@ public class Bullet {
         }
     }
 
-    /**
-     * Checks if the pea is still actively traveling through the air
-     */
+    //Checks if the pea is still actively traveling through the air
     public boolean isMoving() {
         return !hasCollided && currentFrameIndex == 0;
     }

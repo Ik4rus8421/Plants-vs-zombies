@@ -9,9 +9,7 @@ public class SlowBullet extends Bullet {
         super(row, x, true);
     }
 
-    /**
-     * Overrides the standard green pea loader to pull your Ice Pea images instead!
-     */
+    //Overrides the standard green pea loader to pull your Ice Pea images instead!
     @Override
     protected void loadAnimationFrames() {
         for (int i = 1; i <= 3; i++) {
