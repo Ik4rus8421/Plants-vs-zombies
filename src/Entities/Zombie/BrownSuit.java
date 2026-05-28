@@ -78,12 +78,12 @@ public class BrownSuit extends Zombies {
             var cell = Game.getInstance().grid.cells[row][myCol];
 
             if (cell.plant != null) {
-                // TÍNH KHOẢNG CÁCH ĐẾN PLANT
+                // CALCULATE DISTANCE TO PLANT
                 double plantCenter = myCol * 100 + 50;
                 double distance = Math.abs(x - plantCenter);
                 
-                // GIẢM XUỐNG 15px - RẤT GẦN
-                if (distance <= 15) {  // Đổi từ 40 thành 15
+                // REDUCED TO 15px - VERY CLOSE
+                if (distance <= 15) {  // Changed from 40 to 15
                     foundPlantToEat = true;
 
                     // Reset frame timing when transitioning into eating state
@@ -106,7 +106,7 @@ public class BrownSuit extends Zombies {
                         }
                     }
                 } else {
-                    // CHƯA ĐỦ GẦN - KHÔNG ĂN, TIẾP TỤC DI CHUYỂN
+                    // NOT CLOSE ENOUGH - DON'T EAT, CONTINUE MOVING
                     foundPlantToEat = false;
                 }
             }
@@ -122,7 +122,7 @@ public class BrownSuit extends Zombies {
             super.update(); // Keeps baseline walking physics alive
         }
 
-        // Phần còn lại giữ nguyên...
+        // The rest remains unchanged...
         ZombiePhase targetPhase;
         if (this.hp > 66) {
             targetPhase = ZombiePhase.FULL_HP;
@@ -182,7 +182,7 @@ public class BrownSuit extends Zombies {
 
         if (!activeFrames.isEmpty() && currentFrameIndex < activeFrames.size() && activeFrames.get(currentFrameIndex) != null) {
             Image img = activeFrames.get(currentFrameIndex);
-            img = applySlowFilter(img);  // ← CHỈ THÊM DÒNG NÀY
+            img = applySlowFilter(img);  // ← ONLY ADD THIS LINE
             g.drawImage(img, baseX + X_OFFSET, baseY + Y_OFFSET, null);
         } else {
             g.setColor(java.awt.Color.ORANGE);
