@@ -87,12 +87,12 @@ public class BucketHead extends Zombies {
         if (myCol >= 0 && myCol < Game.getInstance().grid.cols && row >= 0 && row < Game.getInstance().grid.rows) {
             var cell = Game.getInstance().grid.cells[row][myCol];
             if (cell.plant != null) {
-                // TÍNH KHOẢNG CÁCH ĐẾN PLANT
+                // CALCULATE DISTANCE TO PLANT
                 double plantCenter = myCol * 100 + 50;
                 double distance = Math.abs(x - plantCenter);
                 
-                // GIẢM XUỐNG 15px - RẤT GẦN
-                if (distance <= 15) {  // Đổi từ 40 thành 15
+                // REDUCED TO 15px - VERY CLOSE
+                if (distance <= 15) {  // Changed from 40 to 15
                     foundPlantToEat = true;
                     if (!isAttacking) {
                         currentFrameIndex = 0;
@@ -109,7 +109,7 @@ public class BucketHead extends Zombies {
                         }
                     }
                 } else {
-                    // CHƯA ĐỦ GẦN - TIẾP TỤC DI CHUYỂN
+                    // NOT CLOSE ENOUGH - CONTINUE MOVING
                     foundPlantToEat = false;
                 }
             }
@@ -124,7 +124,7 @@ public class BucketHead extends Zombies {
             super.update();
         }
 
-        // Phần còn lại giữ nguyên...
+        // The rest remains unchanged...
         ZombiePhase targetPhase;
         if (this.hp > 260) {
             targetPhase = ZombiePhase.FULL_BUCKET;
