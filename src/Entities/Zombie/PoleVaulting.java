@@ -324,14 +324,14 @@ public class PoleVaulting extends Zombies {
     // =========================
 
     private void attackPlant(Entities.Plant.Plants plant) {
-        // Tính khoảng cách đến plant
+        // Calculate distance to plant
         int plantCol = plant.col;
         double plantCenter = plantCol * 100 + 50;
         double distance = Math.abs(x - plantCenter);
         
-        // CHỈ TẤN CÔNG KHI ĐỦ GẦN (cách plant dưới 40px)
+        // ONLY ATTACK WHEN CLOSE ENOUGH (less than 40px from plant)
         if (distance > 40) {
-            return;  // Chưa đủ gần, không tấn công
+            return;  // Not close enough, don't attack
         }
         
         if (!isAttacking) {
@@ -597,7 +597,7 @@ public class PoleVaulting extends Zombies {
             );
         }
     }
-    // Thêm method này vào PoleVaulting.java
+    // Add this method to PoleVaulting.java
     public boolean hasJumped() {
         return jumped;
     }
