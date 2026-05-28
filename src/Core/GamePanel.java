@@ -49,11 +49,11 @@ public class GamePanel extends JPanel {
     private Image chomperReady;
     private Image chomperFaded;
     private Image chomperPreview;
-    // Thêm biến ở đầu class GamePanel
+    // Add variables at the beginning of GamePanel class
     private boolean isGameOver = false;
     private boolean isGameWin = false;
 
-    // Thêm phương thức để kiểm tra và set trạng thái
+    // Add method to check and set state
     public void checkGameState() {
         if (game.isGameWin() && !isGameWin) {
             isGameWin = true;
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel {
     }
 
     public void resetGame() {
-        game.resetData();  // Reset dữ liệu trong cùng instance
+        game.resetData();  // Reset data in the same instance
         
         isGameOver = false;
         isGameWin = false;
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel {
             game.update();
             repaint();
         });
-        // Trong constructor GamePanel, thêm:
+        // In GamePanel constructor, add:
         setFocusable(true);
         addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -461,25 +461,25 @@ public class GamePanel extends JPanel {
         for (var s : game.suns) {
             s.draw(g);
         }
-        // Kiểm tra trạng thái game
+        // Check game state
         checkGameState();
 
         if (isGameOver) {
-            // Vẽ lớp phủ mờ
+            // Draw overlay
             Graphics2D g2d = (Graphics2D) g;
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
             
             if (isGameWin) {
-                g2d.setColor(new Color(0, 150, 0));  // Xanh lá
+                g2d.setColor(new Color(0, 150, 0));  // Green
             } else {
-                g2d.setColor(new Color(150, 0, 0));  // Đỏ
+                g2d.setColor(new Color(150, 0, 0));  // Red
             }
             g2d.fillRect(0, 0, getWidth(), getHeight());
             
             // Reset composite
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
             
-            // Vẽ chữ thông báo
+            // Draw message text
             g2d.setColor(Color.WHITE);
             g2d.setFont(new Font("Arial", Font.BOLD, 60));
             
@@ -488,7 +488,7 @@ public class GamePanel extends JPanel {
             int msgWidth = fm.stringWidth(message);
             g2d.drawString(message, (getWidth() - msgWidth) / 2 - 250, getHeight() / 2);
             
-            // Vẽ hướng dẫn
+            // Draw instruction
             g2d.setFont(new Font("Arial", Font.PLAIN, 24));
             String instruction = "Press ENTER to play again";
             int insWidth = fm.stringWidth(instruction);
@@ -497,7 +497,7 @@ public class GamePanel extends JPanel {
     }
 
 public void handleClick(int x, int y) {
-    // ==================== 1. XỬ LÝ CLICK VÀO SUN ====================
+    // ==================== 1. HANDLE CLICK ON SUN ====================
     for (int i = 0; i < game.suns.size(); i++) {
         var s = game.suns.get(i);
         if (x >= s.x && x <= s.x + 40 && y >= s.y && y <= s.y + 40) {
@@ -508,9 +508,9 @@ public void handleClick(int x, int y) {
         }
     }
 
-    // ==================== 2. XỬ LÝ CLICK TRÊN THANH MENU ====================
+    // ==================== 2. HANDLE CLICK ON MENU BAR ====================
     if (y <= 100) {
-        // 2a. Hủy plant khi click vào vùng trống của menu
+        // 2a. Cancel plant when clicking on empty menu area
         if (selectedPlant != null) {
             boolean isOnCard = (x >= 110 && x <= 170) ||
                                (x >= 200 && x <= 260) ||
@@ -529,7 +529,7 @@ public void handleClick(int x, int y) {
             }
         }
         
-        // 2b. Chọn plant (hoặc hủy nếu click vào packet đang chọn)
+        // 2b. Select plant (or cancel if clicking on already selected packet)
         PlantType newPlant = null;
         if (x >= 110 && x <= 170) newPlant = PlantType.SUNFLOWER;
         else if (x >= 200 && x <= 260) newPlant = PlantType.PEASHOOTER;
@@ -541,16 +541,16 @@ public void handleClick(int x, int y) {
         else if (x >= 740 && x <= 800) newPlant = PlantType.WALL_NUT;
 
         if (newPlant != null) {
-            // Nếu click vào packet và đã có plant được chọn (bất kể loại nào) -> HỦY
+            // If clicking on packet and a plant is already selected (regardless of type) -> CANCEL
             if (selectedPlant != null) {
                 cancelPlantSelection();
             } else {
-                // Chỉ chọn mới nếu chưa có plant nào được chọn
+                // Only select new if no plant is selected yet
                 selectPlant(newPlant);
             }
         }
         else if (x >= 830 && x <= 890) {
-            // 2c. Xử lý shovel
+            // 2c. Handle shovel
             if (shovel.isActive()) {
                 shovel.deactivate();
             } else {
@@ -564,7 +564,7 @@ public void handleClick(int x, int y) {
         return;
     }
 
-    // ==================== 3. XỬ LÝ CLICK RA NGOÀI MAP ====================
+    // ==================== 3. HANDLE CLICK OUTSIDE MAP ====================
     int col = x / 100;
     int row = (y - 100) / 100;
     
@@ -575,7 +575,7 @@ public void handleClick(int x, int y) {
         return;
     }
 
-    // ==================== 4. XỬ LÝ SHOVEL MODE ====================
+    // ==================== 4. HANDLE SHOVEL MODE ====================
     if (shovel.isActive()) {
         if (row >= 0 && row < game.grid.rows && col >= 0 && col < game.grid.cols) {
             game.grid.cells[row][col].plant = null;
@@ -585,7 +585,7 @@ public void handleClick(int x, int y) {
         return;
     }
 
-    // ==================== 5. XỬ LÝ ĐẶT PLANT ====================
+    // ==================== 5. HANDLE PLANT PLACEMENT ====================
     if (game.grid.cells[row][col].plant == null && selectedPlant != null) {
         placePlantAt(row, col, selectedPlant);
         cancelPlantSelection();
@@ -593,7 +593,7 @@ public void handleClick(int x, int y) {
     }
 }
 
-// ==================== PHƯƠNG THỨC HỖ TRỢ ====================
+// ==================== HELPER METHODS ====================
 
 private void selectPlant(PlantType type) {
     selectedPlant = type;
@@ -617,7 +617,7 @@ private void cancelPlantSelection() {
     }
 
     public void handleDragDrop(int dropX, int dropY, int startX, int startY) {
-        // Xử lý shovel kéo thả
+        // Handle shovel drag and drop
         if (startY <= 100 && startX >= 830 && startX <= 890) {
             if (dropY > 100) {
                 int col = dropX / 100;
@@ -631,7 +631,7 @@ private void cancelPlantSelection() {
             return;
         }
         
-        // Xử lý plant kéo thả
+        // Handle plant drag and drop
         if (startY <= 100) {
             PlantType draggedPlant = getPlantAtCardPosition(startX);
             if (draggedPlant == null || shovel.isActive()) {
