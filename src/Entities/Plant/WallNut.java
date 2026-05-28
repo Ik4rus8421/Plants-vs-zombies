@@ -52,9 +52,7 @@ public class WallNut extends Plants {
         return null;
     }
 
-    /**
-     * Determines the current structural stage threshold based on remaining hit points
-     */
+    // Determines the current structural stage threshold based on remaining hit points
     private int getCurrentPhase() {
         if (hp > 333) return 1;      // Phase 1: Healthy (Above 66% HP)
         else if (hp > 166) return 2; // Phase 2: Cracking (33% to 66% HP)
