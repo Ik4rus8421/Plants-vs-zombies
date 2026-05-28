@@ -12,7 +12,7 @@ public class Main {
 
         GamePanel gamePanel = new GamePanel();
 
-        // dịch gamepanel để grid khớp ô cỏ
+        // Translate gamepanel to align grid with grass cells
         gamePanel.setBounds(528, -10, 900, 600);
 
         lawnPanel.add(gamePanel);
