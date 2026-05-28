@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 public class Sun {
     public int x, y;
-    public int targetY;     // điểm dừng
+    public int targetY;     // Stop falling once it reaches this Y coordinate
     public int value = 50;
     public boolean falling = true;
     private int speed = 2;
@@ -32,7 +32,7 @@ public class Sun {
 
     /**
      * Loads sun1.png and sun2.png assets safely from memory
-     */
+
     private void loadAnimationFrames() {
         for (int i = 1; i <= 2; i++) {
             String path = "/image/others/sun/sun" + i + ".png";
