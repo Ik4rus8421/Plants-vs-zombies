@@ -20,7 +20,7 @@ public class CherryBomb extends Plants {
     private static Image cardReady;
     private static Image cardFaded;
     
-    // Drag image (kéo thả)
+    // Drag image
     private static Image dragImage;
     
     private int currentFrameIndex = 0;
@@ -97,9 +97,9 @@ public class CherryBomb extends Plants {
     
     @Override
     public void update() {
-        // Nếu chưa nổ, kiểm tra zombie trong vùng 3x3
+        // If not exploded yet, check for zombies in the 3x3 area
         if (!exploded) {
-            // Vùng nổ của cherry bomb: 3x3 ô xung quanh
+            // Cherry bomb explosion area: 3x3 cells around
             int startRow = Math.max(0, row - 1);
             int endRow = Math.min(Game.getInstance().grid.rows - 1, row + 1);
             int startCol = Math.max(0, col - 1);
@@ -107,9 +107,9 @@ public class CherryBomb extends Plants {
             
             boolean hasZombieInRange = false;
             
-            // Kiểm tra từng zombie có phần nào lấn vào vùng nổ không
+            // Check each zombie if any part overlaps the explosion area
             for (var z : Game.getInstance().Zombies) {
-                // Hitbox của zombie
+                // Zombie hitbox
                 double zombieLeft = z.x;
                 double zombieRight = z.x + 60;
                 
@@ -121,9 +121,9 @@ public class CherryBomb extends Plants {
                     }
                 }
                 
-                // Kiểm tra zombie có nằm trong vùng nổ theo hàng
+                // Check if zombie is within explosion rows
                 if (z.row >= startRow && z.row <= endRow) {
-                    // Kiểm tra zombie có phần nào trong các cột của vùng nổ
+                    // Check if zombie overlaps any cells in the explosion columns
                     for (int c = startCol; c <= endCol; c++) {
                         double mineLeft = c * 100;
                         double mineRight = c * 100 + 100;
@@ -149,20 +149,20 @@ public class CherryBomb extends Plants {
             animationTimer.stop();
         }
         
-        // Vùng nổ 3x3 ô
+        // 3x3 cell explosion area
         int startRow = Math.max(0, row - 1);
         int endRow = Math.min(Game.getInstance().grid.rows - 1, row + 1);
         int startCol = Math.max(0, col - 1);
         int endCol = Math.min(Game.getInstance().grid.cols - 1, col + 1);
         
-        // Xóa TẤT CẢ zombie có phần nào trong vùng nổ
+        // Remove ALL zombies that have any part in the explosion area
         for (int i = Game.getInstance().Zombies.size() - 1; i >= 0; i--) {
             var z = Game.getInstance().Zombies.get(i);
             
-            // Kiểm tra hàng
+            // Check row
             if (z.row < startRow || z.row > endRow) continue;
             
-            // Hitbox zombie
+            // Zombie hitbox
             double zombieLeft = z.x;
             double zombieRight = z.x + 60;
             
@@ -174,7 +174,7 @@ public class CherryBomb extends Plants {
                 }
             }
             
-            // Kiểm tra có phần nào trong vùng nổ không
+            // Check if any part is in the explosion area
             boolean killed = false;
             for (int c = startCol; c <= endCol; c++) {
                 double mineLeft = c * 100;
@@ -189,7 +189,7 @@ public class CherryBomb extends Plants {
             }
         }
         
-        // Xóa cherry bomb
+        // Remove cherry bomb
         Game.getInstance().grid.cells[row][col].plant = null;
         System.out.println("CherryBomb EXPLODED at row " + row + ", col " + col);
     }
